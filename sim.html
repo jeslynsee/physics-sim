@@ -15,6 +15,37 @@
 
     <script>
 
+      //setting up canvas
+
+      var canvas = document.getElementById("myCanvas");
+      var c = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth - 20;
+      canvas.height = window.innerHeight - 20;
+
+      var simulationMinWidth = 20.0;
+      var scalingC = Math.min(canvas.width, canvas.height)/simulationMinWidth;
+      var simulationWidth = canvas.width/scalingC;
+      var simulationHeight = canvas.height/scalingC;
+
+      // drawing function
+      function draw() {
+
+      }
+
+      // simulation function 
+      function simulation() {
+
+      }
+
+      function update() {
+         simulation();
+         draw();
+         requestAnimationFrame(update);
+      }
+
+      update();
+
     </script>
  </body>
  </html>
