@@ -28,14 +28,59 @@
       var simulationWidth = canvas.width/scalingC;
       var simulationHeight = canvas.height/scalingC;
 
+      function cX(pos) {
+         return pos.x * scalingC;
+      }
+
+      function cY(pos) {
+         return canvas.height - pos.y * scalingC;
+      }
+
+      //scene 
+
+      var gravity = {
+         x: 0.0,
+         y: -10.0
+      };
+
+      var time = 1.0/60.0;
+
+      var ball = {
+         radius: 0.2,
+         pos: {x: 0.2, y: 0.2},
+         vel: {x: 10.0, y: 15.0}
+      };
+
       // drawing function
       function draw() {
+         c.clearRect(0, 0, canvas.width, canvas.height);
 
+         c.fillStyle = "#CBC3E3";
+
+         c.beginPath();
+         c.arc(cX(ball.pos), cY(ball.pos), scalingC * ball.radius, 0.0, 2.0 * Math.PI);
+         c.closePath();
+         c.fill();
       }
 
       // simulation function 
       function simulation() {
+         // F = m*a
+         ball.vel.x += gravity.x * time;
+         ball.vel.y += gravity.y * time;
 
+         ball.pos.x += ball.vel.x * time;
+         ball.pos.y += ball.vel.y * time;
+
+         if (ball.pos.x < 0.0) {
+            ball.pos.x = 0.0;
+            ball.vel.x = -ball.vel.x;
+         }
+
+         if (ball.pos.x > simulationWidth) {
+            ball.pos.x = 0.0;
+            ball.vel.x = -ball.vel.x;
+         }
       }
 
       function update() {
